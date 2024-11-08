@@ -16,6 +16,8 @@
                     <div class="card w-100 pt-2">
                         <div class="card-body">
                             <h5 class="card-title">Project Name: {{ $project->name }}</h5>
+                            <h4 class="card-subtitle mb-2 text-muted">Tipo di progetto:
+                                {{ $project->type->name }}</h4>
                             <h6 class="card-subtitle mb-2 text-muted">Started on: {{ $project->date }}</h6>
                             <p class="card-text">
                                 <strong>Languages used:</strong> {{ $project->languages }}

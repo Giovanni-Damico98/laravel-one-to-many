@@ -916,6 +916,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <h3 class="card-title">Project Name: {{ $project->name }}</h3>
+                                <h4 class="card-subtitle mb-2 text-muted">Tipo di progetto:
+                                    {{ $project->type->name }}</h4>
                                 <h4 class="card-subtitle mb-2 text-muted">Iniziato in data: {{ $project->date }}</h4>
                                 <p class="card-text">
                                     <strong>Linguaggio utilizzato:</strong> {{ $project->languages }}

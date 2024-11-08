@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Type;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -22,7 +23,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $types = Type::all();
+        return view('admin.projects.create', compact('types'));
     }
 
     /**
@@ -33,14 +35,16 @@ class ProjectController extends Controller
         // Validazione dei dati
         $request->validate([
             'name' => 'required|string|max:255',
+            'type_id' => 'required|numeric',
             'date' => 'required|date',
-            'languages' => 'required|string|max:255',
+            'languages' => 'nullable|string|max:255',
             'description' => 'required|string',
         ]);
 
         // Creazione di un nuovo progetto
         $project = new Project;
         $project->name = $request->input('name');
+        $project->type_id = $request->input('type_id');
         $project->date = $request->input('date');
         $project->languages = $request->input('languages');
         $project->description = $request->input('description');
@@ -57,7 +61,10 @@ class ProjectController extends Controller
     public function show(string $id)
     {
         $projects = Project::findOrFail($id);
-        return view('admin.projects.show', compact("projects"));
+        $relatedProjects = Project::where('type_id', $projects->type_id)
+            ->where('id', '!=', $projects->id) // Exclude the current project
+            ->get();
+        return view('admin.projects.show', compact("projects", 'relatedProjects'));
     }
 
     /**
@@ -65,11 +72,13 @@ class ProjectController extends Controller
      */
     public function edit(string $id)
     {
+        $types = Type::all();
+
         // Trova il progetto da modificare
         $project = Project::findOrFail($id);
 
         // Ritorna la vista di modifica con il progetto da modificare
-        return view('admin.projects.edit', compact('project'));
+        return view('admin.projects.edit', compact('project', 'types'));
     }
 
     /**
@@ -83,13 +92,15 @@ class ProjectController extends Controller
         // Validazione dei dati
         $request->validate([
             'name' => 'required|string|max:255',
+            'type_id' => 'required|numeric',
             'date' => 'required|date',
-            'languages' => 'required|string|max:255',
+            'languages' => 'nullable|string|max:255',
             'description' => 'required|string',
         ]);
 
         // Aggiorna i dati del progetto
         $project->name = $request->input('name');
+        $project->type_id = $request->input('type_id');
         $project->date = $request->input('date');
         $project->languages = $request->input('languages');
         $project->description = $request->input('description');

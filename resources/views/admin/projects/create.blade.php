@@ -14,6 +14,15 @@
                         <input type="text" name="name" id="name" class="form-control" required>
                     </div>
 
+                    <div class="form-group my-3">
+                        <label for="project_type_id" class="mb-1">Tipo di progetto</label> <br>
+                        <select name="type_id" id="project_type_id">
+                            @foreach ($types as $type)
+                                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
                     <div class="form-group">
                         <label for="date">Iniziato in data</label>
                         <input type="date" name="date" id="date" class="form-control" required>

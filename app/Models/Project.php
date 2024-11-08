@@ -9,4 +9,9 @@ class Project extends Model
 {
     // Specifica la tabella associata al Model
     protected $table = 'projects';
+
+    public function type()
+    {
+        return $this->belongsTo(Type::class);
+    }
 }

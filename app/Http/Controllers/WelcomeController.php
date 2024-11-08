@@ -13,7 +13,8 @@ class WelcomeController extends Controller
     public function index()
     {
         $projects = Project::all();
-        return view("welcome", compact("projects"));
+        // return view("welcome", compact("projects"));
+        return view("benvenuto", compact("projects"));
     }
 
     /**

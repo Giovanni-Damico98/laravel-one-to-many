@@ -16,6 +16,15 @@
                             value="{{ old('name', $project->name) }}" required>
                     </div>
 
+                    <div class="form-group my-3">
+                        <label for="project_type_id" class="mb-1">Tipo di progetto</label> <br>
+                        <select name="type_id" id="project_type_id">
+                            @foreach ($types as $type)
+                                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
                     <div class="form-group">
                         <label for="date">Started on</label>
                         <input type="date" name="date" id="date" class="form-control"
@@ -25,7 +34,7 @@
                     <div class="form-group">
                         <label for="languages">Languages used</label>
                         <input type="text" name="languages" id="languages" class="form-control"
-                            value="{{ old('languages', $project->languages) }}" required>
+                            value="{{ old('languages', $project->languages) }}">
                     </div>
 
                     <div class="form-group">

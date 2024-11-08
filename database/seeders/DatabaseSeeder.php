@@ -14,8 +14,8 @@ class DatabaseSeeder extends Seeder
     {
         // chiamo il ProjectSeeder per il popolamento della tabella
         $this->call([
+            TypeSeeder::class,
             ProjectSeeder::class,
-            TypeSeeder::class
         ]);
     }
 }
